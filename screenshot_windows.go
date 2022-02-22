@@ -20,6 +20,11 @@ func Close(hDC HDC)  {
 	ReleaseDC(0, hDC)
 }
 
+func ScreenSize(hDC HDC) (int, int) {
+	x := GetDeviceCaps(hDC, HORZRES)
+	y := GetDeviceCaps(hDC, VERTRES)
+	return x, y
+}
 
 func CaptureScreen(hDC HDC) (*image.RGBA, error) {
 	m_hDC := CreateCompatibleDC(hDC)

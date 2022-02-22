@@ -18,6 +18,13 @@ func Close(c *xgb.Conn) {
 	c.Close()
 }
 
+func ScreenSize(c *xgb.Conn) (int, int) {
+	screen := xproto.Setup(c).DefaultScreen(c)
+	x := screen.WidthInPixels
+	y := screen.HeightInPixels
+	return int(x), int(y)
+}
+
 func CaptureScreen(c *xgb.Conn) (*image.RGBA, error) {
 	screen := xproto.Setup(c).DefaultScreen(c)
 	x := screen.WidthInPixels
