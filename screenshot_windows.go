@@ -16,14 +16,14 @@ func Connect() (HDC, error) {
 	return hDC, nil
 }
 
-func Close(hDC HDC)  {
+func Close(hDC HDC) {
 	ReleaseDC(0, hDC)
 }
 
-func ScreenSize(hDC HDC) (int, int) {
+func ScreenSize(hDC HDC) [2]int {
 	x := GetDeviceCaps(hDC, HORZRES)
 	y := GetDeviceCaps(hDC, VERTRES)
-	return x, y
+	return [2]int{int(x), int(y)}
 }
 
 func CaptureScreen(hDC HDC) (*image.RGBA, error) {

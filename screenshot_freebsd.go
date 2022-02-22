@@ -1,9 +1,9 @@
 package screenshot
 
 import (
-	"image"
 	"github.com/BurntSushi/xgb"
 	"github.com/BurntSushi/xgb/xproto"
+	"image"
 )
 
 func Connect() (*xgb.Conn, error) {
@@ -18,11 +18,11 @@ func Close(c *xgb.Conn) {
 	c.Close()
 }
 
-func ScreenSize(c *xgb.Conn) (int, int) {
+func ScreenSize(c *xgb.Conn) [2]int {
 	screen := xproto.Setup(c).DefaultScreen(c)
 	x := screen.WidthInPixels
 	y := screen.HeightInPixels
-	return int(x), int(y)
+	return [2]int{int(x), int(y)}
 }
 
 func CaptureScreen(c *xgb.Conn) (*image.RGBA, error) {
@@ -37,6 +37,6 @@ func CaptureScreen(c *xgb.Conn) (*image.RGBA, error) {
 	for i := 0; i < len(data); i += 4 {
 		data[i], data[i+2], data[i+3] = data[i+2], data[i], 255
 	}
-	img := &image.RGBA{data, 4 * int(x), image.Rect(0, 0, int(x), int(y) )}
+	img := &image.RGBA{data, 4 * int(x), image.Rect(0, 0, int(x), int(y))}
 	return img, nil
 }
