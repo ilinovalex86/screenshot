@@ -1,9 +1,9 @@
 package screenshot
 
 import (
-	"image"
 	"github.com/BurntSushi/xgb"
 	"github.com/BurntSushi/xgb/xproto"
+	"image"
 )
 
 func Connect() (*xgb.Conn, error) {
@@ -37,6 +37,6 @@ func CaptureScreen(c *xgb.Conn) (*image.RGBA, error) {
 	for i := 0; i < len(data); i += 4 {
 		data[i], data[i+2], data[i+3] = data[i+2], data[i], 255
 	}
-	img := &image.RGBA{data, 4 * int(x), image.Rect(0, 0, int(x), int(y) )}
+	img := &image.RGBA{data, 4 * int(x), image.Rect(0, 0, int(x), int(y))}
 	return img, nil
 }
